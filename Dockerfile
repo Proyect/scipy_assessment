@@ -4,10 +4,13 @@ FROM python:3.8-slim-buster
 # Set work directory
 WORKDIR /usr/src/app
 
+COPY . .
+
 # Install system dependencies
-RUN apt-get update && apt-get install \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     gfortran \
+    python3-dev \
     libopenblas-dev \
     liblapack-dev \
     git \
@@ -31,10 +34,10 @@ ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
 
 # Modify setup.py to fix the version issue
-RUN sed -i \"s/ISRELEASED = False/ISRELEASED = True/\" setup.py
+RUN sed -i 's/ISRELEASED = False/ISRELEASED = True/' setup.py
 
 # Modify setup.py to remove test_suite option
-RUN sed -i \"/test_suite/d\" setup.py
+RUN sed -i '/test_suite/d' setup.py
 
 # Install scipy in editable mode with verbose output
 RUN pip install --no-use-pep517 -e . -v
