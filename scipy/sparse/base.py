@@ -385,7 +385,10 @@ class spmatrix(object):
         return self.tocsr().__ge__(other)
 
     def __abs__(self):
-        return abs(self.tocsr())
+        return abs(self.tocsr())        
+
+    def __round__(self, ndigits=0):
+        return round(self.tocsr(), ndigits=ndigits)    
 
     def _add_sparse(self, other):
         return self.tocsr()._add_sparse(other)

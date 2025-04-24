@@ -39,8 +39,8 @@ RUN sed -i 's/ISRELEASED = False/ISRELEASED = True/' setup.py
 # Modify setup.py to remove test_suite option
 RUN sed -i '/test_suite/d' setup.py
 
-# Install scipy in editable mode with verbose output
-RUN pip install --no-use-pep517 -e . -v
+# Install scipy in editable mode with verbose output #posible error no instalo scipy
+RUN pip install --no-use-pep517 . -v
 
 # Remove pytest.ini if it exists (to avoid config issues)
 RUN rm -f pytest.ini
